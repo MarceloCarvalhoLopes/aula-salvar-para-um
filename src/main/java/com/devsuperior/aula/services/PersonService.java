@@ -1,6 +1,7 @@
 package com.devsuperior.aula.services;
 
 import com.devsuperior.aula.dto.PersonDepartmentDto;
+import com.devsuperior.aula.dto.PersonDto;
 import com.devsuperior.aula.entities.Department;
 import com.devsuperior.aula.entities.Person;
 import com.devsuperior.aula.repositories.DepartmentRepository;
@@ -36,5 +37,23 @@ public class PersonService {
 
 
     }
+
+    public PersonDto insert(PersonDto dto){
+
+        Person entity =  new Person();
+        entity.setName(dto.getName());
+        entity.setSalary(dto.getSalary());
+
+        //        Department department = departmentRepository.getReferenceById(dto.getDepartmentId());
+        Department department = new Department();
+        department.setId(dto.getDepartmentId());
+
+        entity.setDepartment(department);
+        entity = personRepository.save(entity);
+
+        return new PersonDto(entity);
+
+    }
+
 
 }
